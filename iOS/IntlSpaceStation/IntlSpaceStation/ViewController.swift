@@ -25,6 +25,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     var routeLine: MKOverlay?
     var routeLineView: MKPolylineView?
     var firstCoord: Bool?
+    var locationManager: CLLocationManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +39,30 @@ class ViewController: UIViewController, MKMapViewDelegate {
         pollSpaceData()
         spaceTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("pollSpaceData"), userInfo: nil, repeats: true)
         
+        /*
+        SEL requestSelector = NSSelectorFromString(@"requestWhenInUseAuthorization");
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined &&
+            [self.locationManager respondsToSelector:requestSelector]) {
+                [self.locationManager performSelector:requestSelector withObject:NULL];
+        } else {
+            [self.locationManager startUpdatingLocation];
+        }*/
+        finishLaunch()
     }
 
-    
+    func finishLaunch() {
+        //ask for authorization
+        self.locationManager = CLLocationManager()
+        let status = CLLocationManager.authorizationStatus()
+        if(status == CLAuthorizationStatus.NotDetermined) {
+            self.locationManager!.requestAlwaysAuthorization();
+            print("yes")
+        }
+        else {
+            print("nope")
+            //self.startMonitoring()
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
