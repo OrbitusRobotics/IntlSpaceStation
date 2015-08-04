@@ -17,6 +17,7 @@
 		419C98631B70041B0034C42B /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419C98621B70041B0034C42B /* MapPin.swift */; };
 		419C98651B7009D60034C42B /* spacestation.png in Resources */ = {isa = PBXBuildFile; fileRef = 419C98641B7009D60034C42B /* spacestation.png */; };
 		419C98671B7009F30034C42B /* spacestation_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 419C98661B7009F30034C42B /* spacestation_small.png */; };
+		419C986B1B705D230034C42B /* Orbitusrobotics_AR3D.png in Resources */ = {isa = PBXBuildFile; fileRef = 419C986A1B705D230034C42B /* Orbitusrobotics_AR3D.png */; };
 		41CB11A31B6FE2B900BA1CC7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41CB11A21B6FE2B900BA1CC7 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		419C98621B70041B0034C42B /* MapPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
 		419C98641B7009D60034C42B /* spacestation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spacestation.png; sourceTree = "<group>"; };
 		419C98661B7009F30034C42B /* spacestation_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spacestation_small.png; sourceTree = "<group>"; };
+		419C986A1B705D230034C42B /* Orbitusrobotics_AR3D.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Orbitusrobotics_AR3D.png; sourceTree = "<group>"; };
 		41CB11A21B6FE2B900BA1CC7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -95,6 +97,7 @@
 				412900F01B6FE14000AEEE99 /* Main.storyboard */,
 				412900F31B6FE14000AEEE99 /* Images.xcassets */,
 				412900F51B6FE14000AEEE99 /* LaunchScreen.xib */,
+				419C986A1B705D230034C42B /* Orbitusrobotics_AR3D.png */,
 				419C98641B7009D60034C42B /* spacestation.png */,
 				419C98661B7009F30034C42B /* spacestation_small.png */,
 				4102707A1B6FE52400591AED /* ISS_iOS_icons */,
@@ -215,6 +218,7 @@
 				419C98671B7009F30034C42B /* spacestation_small.png in Resources */,
 				412900F71B6FE14000AEEE99 /* LaunchScreen.xib in Resources */,
 				412900F41B6FE14000AEEE99 /* Images.xcassets in Resources */,
+				419C986B1B705D230034C42B /* Orbitusrobotics_AR3D.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
