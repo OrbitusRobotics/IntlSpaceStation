@@ -1,4 +1,71 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:id="@+id/map" tools:context=".ISSMapsActivity"
-    android:name="com.google.android.gms.maps.SupportMapFragment" />
+    android:name="com.google.android.gms.maps.SupportMapFragment" >
+
+
+    <TextView
+        android:id="@+id/coordinates"
+
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="Longitude:"
+        android:drawableLeft="@drawable/orbitusrobotics"
+
+        android:background="@color/opaque_black"
+        android:textColor="@color/white_textcolor"
+        android:textSize="14sp" />
+
+
+
+    <!--
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/opaque_black"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Latitude:"
+                android:textColor="@color/white_textcolor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/latitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.000000000"
+                android:textColor="@color/white_textcolor"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Longitude:"
+                android:textColor="@color/white_textcolor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.000000000"
+                android:textColor="@color/white_textcolor"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>-->
+
+
+</fragment>

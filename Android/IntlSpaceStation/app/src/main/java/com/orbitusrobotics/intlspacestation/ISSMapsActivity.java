@@ -3,6 +3,7 @@ package com.orbitusrobotics.intlspacestation;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -41,6 +42,7 @@ public class ISSMapsActivity extends FragmentActivity {
         latitude = 0.0;
         longitude = 0.0;
 
+        TimerMethod();
         myTimer = new Timer();
         myTimer.schedule(new TimerTask() {
             @Override
@@ -48,7 +50,7 @@ public class ISSMapsActivity extends FragmentActivity {
                 TimerMethod();
             }
 
-        }, 0, 5000);
+        }, 0, 10000);
 
 
         Log.d("maps", "Start");
@@ -65,6 +67,9 @@ public class ISSMapsActivity extends FragmentActivity {
         });
 
         thread.start();
+
+
+
 
     }
     private void TimerMethod()
@@ -136,10 +141,16 @@ public class ISSMapsActivity extends FragmentActivity {
         latitude = lat_elem.getAsDouble();
         longitude = long_elem.getAsDouble();
 
+        ((TextView) findViewById(R.id.coordinates)).setText(String.format("lat: %s\nlong: %s", latitude_s, longitude_s));
+
         Log.d("maps", "latitude " + latitude_s);
         Log.d("maps", "longitude " + longitude_s);
         //mMap.addMarker(new MarkerOptions().position(new LatLng(lat_elem.getAsDouble(), long_elem.getAsDouble())).title("Marker"));
 
+        if (firstDataPoint)
+        {
+            TimerMethod();
+        }
         firstDataPoint = false;
 
     }
