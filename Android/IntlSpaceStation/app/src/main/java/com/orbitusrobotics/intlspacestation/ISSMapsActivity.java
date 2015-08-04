@@ -29,6 +29,7 @@ public class ISSMapsActivity extends FragmentActivity {
     public Double longitude;
 
     private Timer myTimer;
+    private boolean firstDataPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class ISSMapsActivity extends FragmentActivity {
         setContentView(R.layout.activity_issmaps);
         setUpMapIfNeeded();
 
+        firstDataPoint = true;
         latitude = 0.0;
         longitude = 0.0;
 
@@ -46,7 +48,7 @@ public class ISSMapsActivity extends FragmentActivity {
                 TimerMethod();
             }
 
-        }, 0, 1000);
+        }, 0, 5000);
 
 
         Log.d("maps", "Start");
@@ -91,7 +93,10 @@ public class ISSMapsActivity extends FragmentActivity {
         public void run() {
 
             //This method runs in the same thread as the UI.
-            mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Marker"));
+            if (!firstDataPoint)
+            {
+                mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Marker"));
+            }
 
             //Do something to the UI thread here
             Log.d("maps", "UIThread - TimeTick");
@@ -135,6 +140,7 @@ public class ISSMapsActivity extends FragmentActivity {
         Log.d("maps", "longitude " + longitude_s);
         //mMap.addMarker(new MarkerOptions().position(new LatLng(lat_elem.getAsDouble(), long_elem.getAsDouble())).title("Marker"));
 
+        firstDataPoint = false;
 
     }
 
@@ -179,6 +185,6 @@ public class ISSMapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        
+
     }
 }
