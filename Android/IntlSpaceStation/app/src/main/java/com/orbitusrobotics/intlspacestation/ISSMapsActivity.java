@@ -1,5 +1,6 @@
 package com.orbitusrobotics.intlspacestation;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,8 +8,11 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -20,6 +24,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,6 +35,9 @@ public class ISSMapsActivity extends FragmentActivity {
 
     public Double latitude;
     public Double longitude;
+
+    public Double old_latitude;
+    public Double old_longitude;
 
     private Timer myTimer;
     private boolean firstDataPoint;
@@ -51,7 +60,7 @@ public class ISSMapsActivity extends FragmentActivity {
                 TimerMethod();
             }
 
-        }, 0, 10000);
+        }, 0, 5000);
 
 
         Log.d("maps", "Start");
@@ -101,7 +110,27 @@ public class ISSMapsActivity extends FragmentActivity {
             //This method runs in the same thread as the UI.
             if (!firstDataPoint)
             {
-                mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Marker"));
+                /*
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(latitude, longitude))
+                        .title("ISS")
+                        .snippet(String.format("lat: %d\nlong: %d", latitude, longitude))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.spacestation_small)));
+                */
+
+                Polyline line = mMap.addPolyline(new PolylineOptions()
+                        .add(new LatLng(latitude, longitude), new LatLng(old_latitude, old_longitude))
+                        .width(20)
+                        .color(Color.BLUE));
+
+                //mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).icon(BitD)
+                //MarkerOptions markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow));
+                //mMap.addMarker(markerOptions);
+
+                SimpleDateFormat s = new SimpleDateFormat("hh:mm:ss dd/MM/yy");
+                String format = s.format(new Date());
+
+                mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("ISS-" + format));
             }
 
             //Do something to the UI thread here
@@ -139,6 +168,9 @@ public class ISSMapsActivity extends FragmentActivity {
         String latitude_s = lat_elem.getAsString();
         String longitude_s = long_elem.getAsString();
 
+        old_latitude = latitude;
+        old_longitude = longitude;
+
         latitude = lat_elem.getAsDouble();
         longitude = long_elem.getAsDouble();
 
@@ -150,7 +182,8 @@ public class ISSMapsActivity extends FragmentActivity {
 
         Log.d("maps", "latitude " + latitude_s);
         Log.d("maps", "longitude " + longitude_s);
-        //mMap.addMarker(new MarkerOptions().position(new LatLng(lat_elem.getAsDouble(), long_elem.getAsDouble())).title("Marker"));
+        // *** add on the main UI thread
+        // mMap.addMarker(new MarkerOptions().position(new LatLng(lat_elem.getAsDouble(), long_elem.getAsDouble())).title("Marker"));
 
         if (firstDataPoint)
         {
@@ -166,21 +199,7 @@ public class ISSMapsActivity extends FragmentActivity {
         setUpMapIfNeeded();
     }
 
-    /**
-     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-     * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
-     * If it isn't installed {@link SupportMapFragment} (and
-     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-     * install/update the Google Play services APK on their device.
-     * <p/>
-     * A user can return to this FragmentActivity after following the prompt and correctly
-     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-     * have been completely destroyed during this process (it is likely that it would only be
-     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-     * method in {@link #onResume()} to guarantee that it will be called.
-     */
+
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -194,12 +213,7 @@ public class ISSMapsActivity extends FragmentActivity {
         }
     }
 
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p/>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     */
+
     private void setUpMap() {
 
     }
