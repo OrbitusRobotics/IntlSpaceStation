@@ -36,6 +36,9 @@ public class ISSMapsActivity extends FragmentActivity {
         setContentView(R.layout.activity_issmaps);
         setUpMapIfNeeded();
 
+        latitude = 0.0;
+        longitude = 0.0;
+
         myTimer = new Timer();
         myTimer.schedule(new TimerTask() {
             @Override
@@ -88,6 +91,7 @@ public class ISSMapsActivity extends FragmentActivity {
         public void run() {
 
             //This method runs in the same thread as the UI.
+            mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Marker"));
 
             //Do something to the UI thread here
             Log.d("maps", "UIThread - TimeTick");
@@ -124,8 +128,13 @@ public class ISSMapsActivity extends FragmentActivity {
         String latitude_s = lat_elem.getAsString();
         String longitude_s = long_elem.getAsString();
 
+        latitude = lat_elem.getAsDouble();
+        longitude = long_elem.getAsDouble();
+
         Log.d("maps", "latitude " + latitude_s);
         Log.d("maps", "longitude " + longitude_s);
+        //mMap.addMarker(new MarkerOptions().position(new LatLng(lat_elem.getAsDouble(), long_elem.getAsDouble())).title("Marker"));
+
 
     }
 
@@ -170,6 +179,6 @@ public class ISSMapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        
     }
 }
