@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -140,6 +141,10 @@ public class ISSMapsActivity extends FragmentActivity {
 
         latitude = lat_elem.getAsDouble();
         longitude = long_elem.getAsDouble();
+
+        DecimalFormat df = new DecimalFormat("#.000000000000000");
+        latitude_s =  df.format(latitude);
+        longitude_s = df.format(longitude);
 
         ((TextView) findViewById(R.id.coordinates)).setText(String.format("lat: %s\nlong: %s", latitude_s, longitude_s));
 
