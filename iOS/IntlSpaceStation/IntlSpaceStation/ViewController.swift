@@ -37,7 +37,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         firstCoord = true;
         
         pollSpaceData()
-        spaceTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("pollSpaceData"), userInfo: nil, repeats: true)
+        spaceTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("pollSpaceData"), userInfo: nil, repeats: true)
         
         /*
         SEL requestSelector = NSSelectorFromString(@"requestWhenInUseAuthorization");

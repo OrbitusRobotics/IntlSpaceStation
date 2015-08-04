@@ -18,6 +18,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ISSMapsActivity extends FragmentActivity {
 
@@ -26,11 +28,23 @@ public class ISSMapsActivity extends FragmentActivity {
     public Double latitude;
     public Double longitude;
 
+    private Timer myTimer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_issmaps);
         setUpMapIfNeeded();
+
+        myTimer = new Timer();
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                TimerMethod();
+            }
+
+        }, 0, 1000);
+
 
         Log.d("maps", "Start");
         Thread thread = new Thread(new Runnable(){
@@ -48,6 +62,39 @@ public class ISSMapsActivity extends FragmentActivity {
         thread.start();
 
     }
+    private void TimerMethod()
+    {
+        //This method is called directly by the timer
+        //and runs in the same thread as the timer.
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    //Your code goes here
+                    doThis();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+
+        //We call the method that will work with the UI
+        //through the runOnUiThread method.
+        this.runOnUiThread(Timer_Tick);
+    }
+
+    private Runnable Timer_Tick = new Runnable() {
+        public void run() {
+
+            //This method runs in the same thread as the UI.
+
+            //Do something to the UI thread here
+            Log.d("maps", "UIThread - TimeTick");
+
+
+        }
+    };
 
     public void doThis() throws IOException {
 
@@ -73,25 +120,12 @@ public class ISSMapsActivity extends FragmentActivity {
         JsonElement long_elem = iss_position_object.get("longitude");
 
 
-        /*
-        try {
-            JSONObject json= (JSONObject) new JSONTokener(result).nextValue();
-            JSONObject json2 = json.getJSONObject("results");
-            test = (String) json2.get("name");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
-
-
         Log.d("maps", "getting iss_position" + rootobj);
         String latitude_s = lat_elem.getAsString();
         String longitude_s = long_elem.getAsString();
 
         Log.d("maps", "latitude " + latitude_s);
         Log.d("maps", "longitude " + longitude_s);
-
-
-        //Log.d("maps", rootobj.get("iss_position").getAsString()); //just grab the zipcode
 
     }
 
