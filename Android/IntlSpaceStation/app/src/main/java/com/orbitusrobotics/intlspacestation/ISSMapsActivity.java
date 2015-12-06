@@ -60,7 +60,7 @@ public class ISSMapsActivity extends FragmentActivity {
                 TimerMethod();
             }
 
-        }, 0, 5000);
+        }, 0, 1000);
 
 
         Log.d("maps", "Start");
